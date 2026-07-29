@@ -5,6 +5,9 @@ Uses pydantic-settings for validated environment variables.
 
 from pydantic_settings import BaseSettings
 from functools import lru_cache
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 class Settings(BaseSettings):
     
@@ -25,7 +28,7 @@ class Settings(BaseSettings):
     cache_ttl_seconds: int = 300
     max_retries: int = 3
     
-    model_config = {"env_file": "../.env", "extra": "ignore"}
+    model_config = {"env_file": BASE_DIR / ".env", "extra": "ignore"}
     
     @property
     def is_production(self) -> bool:
